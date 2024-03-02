@@ -103,7 +103,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
             className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"
           />
 
-          <button onClick={insert} className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700">
+          <button onClick={insert} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-teal-700">
             Guardar Datos
           </button>
         </div>

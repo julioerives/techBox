@@ -79,7 +79,6 @@ export default function Showusers() {
   
   useEffect(() => {
     fetchDataUsers();
-    console.log("EEe");
   }, []);
   return (
     <div>
