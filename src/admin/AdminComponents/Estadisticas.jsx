@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import app from '../../firebaseConfig';
+import RecordPedidos from './stats/RecordPedidos';
 import { getDatabase, ref, get, remove } from "firebase/database";
+import RecordPedidosMes from './stats/RecordPedidosMes';
+import PedidosSemana from './stats/PedidosSemana';
 export default function Estadisticas() {
-  const [historial, setHistorial] = useState(null)
+  const [historial, setHistorial] = useState([])
   const fetchHistorial = async () => {
     try {
       const db = getDatabase(app);
@@ -15,7 +18,10 @@ export default function Estadisticas() {
           ...myData[myFireId],
           itemId: myFireId,
         }));
+        
         setHistorial(temporaryArray);
+        console.log(historial)
+        
       } else {
         alert("Error al obtener datos");
       }
@@ -26,22 +32,22 @@ export default function Estadisticas() {
 
   useEffect(() => {
     fetchHistorial();
-    console.log(historial)
   }, []);
   return (
     <div className='flex gap-8 flex-col'>
-       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg  flex items-center justify-center">record de pedidos</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg  flex items-center justify-center">record de pedidos en el mes</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg  flex items-center justify-center">materiales en activo</div>
+       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+       <RecordPedidos historial={historial}></RecordPedidos>
+  
+    
+    <RecordPedidosMes historial={historial}></RecordPedidosMes>
 </div>
-<div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">grafica material mas pedido</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center"> grafica material mas pedido semana actual</div>
-</div>
+<div className="w-full h-54 flex items-center justify-center">
+  
+  <PedidosSemana historial={historial}></PedidosSemana></div>
+
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
   <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">Hora con mas trafico</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">Pensar</div>
+  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">materiales en activo</div>
   <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">Pensar</div>
 </div>
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
