@@ -50,7 +50,6 @@ export default function PedidosSemana({ historial }) {
   const obtenerNumeroSemana = (fecha) => {
     const fechaObjeto = new Date(fecha);
     const numeroSemana = fechaObjeto.getWeek();
-    console.log(numeroSemana);
     return numeroSemana;
   };
 
@@ -74,19 +73,17 @@ export default function PedidosSemana({ historial }) {
     });
 
     setData(nuevoConteo);
-    console.log(nuevoConteo);
   };
 
   useEffect(() => {
     setFechaActualFormateada(obtenerFechaActualFormateada());
     const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
     setDatosFiltrados(datosFiltrados);
-    console.log(datosFiltrados);
     items();
   }, [historial, fechaActualFormateada]);
 
   const midata = {
-    labels: ["Adaptador","Ethernet","Extension","HDMI"],
+    labels: ["Extension","HDMI","Adaptador","Ethernet"],
     datasets: [ 
         {
             label: 'Prestamos totales',
@@ -131,12 +128,12 @@ export default function PedidosSemana({ historial }) {
   };
 
   return (
-    <div className="h-54 rounded-lg  shadow-lg  px-24 py-4 flex flex-col items-center justify-center">
+    <div className="h-54 w-1/2 rounded-lg  shadow-lg  px-20 py-4 flex flex-col items-center justify-center">
     <div className='flex gap-4'>
     <button type="button" onClick={cambiar} name='izquierda' className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-teal-600 dark:hover:bg-teal-700 focus:outline-none dark:focus:ring-teal-800">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293l-1.414-1.414L4.586 12l6.707 6.707z"/></svg>
     </button>
-      <h1 className='text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl'>Pedidos en el mes</h1>
+      <h1 className='text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl'>Pedidos semana</h1>
       <button type="button" onClick={cambiar} name='derecha'className="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-teal-600 dark:hover:bg-teal-700 focus:outline-none dark:focus:ring-teal-800">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707l-1.414 1.414L15.586 11H6v2h9.586z"/></svg>
       </button>

@@ -4,6 +4,8 @@ import RecordPedidos from './stats/RecordPedidos';
 import { getDatabase, ref, get, remove } from "firebase/database";
 import RecordPedidosMes from './stats/RecordPedidosMes';
 import PedidosSemana from './stats/PedidosSemana';
+import UsuariosFrecuentes from './stats/UsuariosFrecuentes';
+import RegistroHistoria from './stats/RegistroHistoria';
 export default function Estadisticas() {
   const [historial, setHistorial] = useState([])
   const fetchHistorial = async () => {
@@ -20,7 +22,6 @@ export default function Estadisticas() {
         }));
         
         setHistorial(temporaryArray);
-        console.log(historial)
         
       } else {
         alert("Error al obtener datos");
@@ -33,6 +34,9 @@ export default function Estadisticas() {
   useEffect(() => {
     fetchHistorial();
   }, []);
+  useEffect(() => {
+    console.log("Historial actualizado:", historial);
+  }, [historial]);
   return (
     <div className='flex gap-8 flex-col'>
        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
@@ -46,14 +50,10 @@ export default function Estadisticas() {
   <PedidosSemana historial={historial}></PedidosSemana></div>
 
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">Hora con mas trafico</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">materiales en activo</div>
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center">Pensar</div>
+  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center"><RegistroHistoria historial={historial}></RegistroHistoria></div>
 </div>
-<div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
-  <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center shadow-lgr">Dias mas demandados</div>
-  <div className="h-32 rounded-lg bg-gray-200 lg:col-span-2 flex items-center justify-center shadow-lg"> usuarios mas frecuentes</div>
-  <div className="h-32 rounded-lg bg-gray-200 flex items-center justify-center shadow-lg">dias menos demandados</div>
+<div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+ <UsuariosFrecuentes historial={historial}></UsuariosFrecuentes>
 </div>
     </div>
   )

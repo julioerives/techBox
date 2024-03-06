@@ -25,7 +25,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
                     password: targetObject.password
                 })
             }else{
-                alert("error");
+                console.log("Error")
             }
         }
         fetchData();
