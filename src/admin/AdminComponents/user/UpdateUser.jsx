@@ -14,7 +14,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
         const fetchData = async () => 
         {
             const db = getDatabase(app);
-            const dbRef = ref(db,"users/users/"+idFirebase);
+            const dbRef = ref(db,"users/"+idFirebase);
             const snapshot = await get(dbRef);
             if(snapshot.exists()){
                 const targetObject = snapshot.val();
@@ -42,7 +42,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
   };
   const overwriteData = () => {
     const db = getDatabase(app);
-    const newDocRef = ref(db,"users/users/"+idFirebase);
+    const newDocRef = ref(db,"users/"+idFirebase);
     set(newDocRef, {
       nombre: nombre,
       especialidad: especialidad,
