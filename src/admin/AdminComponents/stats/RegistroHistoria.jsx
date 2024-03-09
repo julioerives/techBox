@@ -125,4 +125,4 @@ export default function RegistroHistoria({ historial }) {
       <Line options={misoptions} data={midata} />
    </div>
   );
-}
+} 
