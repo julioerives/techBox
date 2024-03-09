@@ -21,7 +21,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
   };
   const insert=()=>{
     const db = getDatabase(app);
-    const newDocRef = push(ref(db, "users/users/"));
+    const newDocRef = push(ref(db, "users/"));
     set(newDocRef,{
         nombre: input.nombre,
         especialidad: input.especialidad,

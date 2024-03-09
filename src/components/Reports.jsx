@@ -28,7 +28,7 @@ export default function Reports() {
   };
   const insert = () => {
     const db = getDatabase(app);
-    const newDocRef = push(ref(db, "reports/reports/"));
+    const newDocRef = push(ref(db, "reports/"));
     set(newDocRef, {
       nombre: input.nombre,
       apellido: input.apellido,

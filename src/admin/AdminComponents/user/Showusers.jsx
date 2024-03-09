@@ -27,7 +27,7 @@ export default function Showusers() {
   const fetchDataUsers = async () => {
     try {
       const db = getDatabase(app);
-      const dbRef = ref(db, "users/users");
+      const dbRef = ref(db, "users/");
       const snapshot = await get(dbRef);
   
       if (snapshot.exists()) {
