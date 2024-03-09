@@ -48,7 +48,8 @@ export default function PedidosSemana({ historial }) {
   };
 
   const obtenerNumeroSemana = (fecha) => {
-    const fechaObjeto = new Date(fecha);
+    let fechaExample = fecha.substring(3,6)+fecha.substring(0,3)+fecha.substring(6)
+    const fechaObjeto = new Date(fechaExample);
     const numeroSemana = fechaObjeto.getWeek();
     return numeroSemana;
   };
@@ -71,19 +72,20 @@ export default function PedidosSemana({ historial }) {
         nuevoConteo[valor]++;
       }
     });
-
     setData(nuevoConteo);
   };
 
   useEffect(() => {
+    console.log(obtenerNumeroSemana("09-03-24"))
     setFechaActualFormateada(obtenerFechaActualFormateada());
     const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
     setDatosFiltrados(datosFiltrados);
     items();
+    console.log(data);
   }, [historial, fechaActualFormateada]);
 
   const midata = {
-    labels: ["Extension","HDMI","Adaptador","Ethernet"],
+    labels: Object.keys(data),
     datasets: [ 
         {
             label: 'Prestamos totales',

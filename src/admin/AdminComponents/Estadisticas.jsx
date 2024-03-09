@@ -6,6 +6,7 @@ import RecordPedidosMes from './stats/RecordPedidosMes';
 import PedidosSemana from './stats/PedidosSemana';
 import UsuariosFrecuentes from './stats/UsuariosFrecuentes';
 import RegistroHistoria from './stats/RegistroHistoria';
+import UsuariosMes from './stats/UsuariosMes';
 export default function Estadisticas() {
   const [historial, setHistorial] = useState([])
   const fetchHistorial = async () => {
@@ -16,15 +17,16 @@ export default function Estadisticas() {
 
       if (snapshot.exists()) {
         const myData = snapshot.val();
+        console.log(myData);
         const temporaryArray = Object.keys(myData).map((myFireId) => ({
           ...myData[myFireId],
           itemId: myFireId,
         }));
-        
+        console.log(temporaryArray);
         setHistorial(temporaryArray);
         
       } else {
-        alert("Error al obtener datos");
+        console.log("No se pudo conectar");
       }
     } catch (error) {
       console.error("Error al obtener datos:", error.message);
@@ -39,6 +41,8 @@ export default function Estadisticas() {
   }, [historial]);
   return (
     <div className='flex gap-8 flex-col'>
+      <h1 className='text-center font-medium text-3xl'>Material</h1>
+      <hr />
        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
        <RecordPedidos historial={historial}></RecordPedidos>
   
@@ -48,12 +52,16 @@ export default function Estadisticas() {
 <div className="w-full h-54 flex items-center justify-center">
   
   <PedidosSemana historial={historial}></PedidosSemana></div>
-
-<div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-  <div className="h-32 rounded-lg bg-gray-200 shadow-lg flex items-center justify-center"><RegistroHistoria historial={historial}></RegistroHistoria></div>
+  <h1 className='text-center font-medium text-3xl'>General</h1>
+      <hr />
+<div className="grid h-screen grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
+<RegistroHistoria historial={historial}></RegistroHistoria>
 </div>
+<h1 className='text-center font-medium text-3xl'>Usuarios</h1>
+      <hr />
 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
  <UsuariosFrecuentes historial={historial}></UsuariosFrecuentes>
+ <UsuariosMes historial={historial}></UsuariosMes>
 </div>
     </div>
   )

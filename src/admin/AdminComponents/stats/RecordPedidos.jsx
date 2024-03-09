@@ -63,7 +63,7 @@ export default function RecordPedidos({ historial }) {
       });
       setConteo(nuevoConteo);
       setMidata({
-        labels: ["Extension","HDMI","Adaptador","Ethernet"],
+        labels: Object.keys(conteo),
         datasets: [ 
             {
                 label: 'Prestamos totales',

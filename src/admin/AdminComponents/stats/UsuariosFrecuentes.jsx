@@ -35,8 +35,17 @@ export default function UsuariosFrecuentes({ historial }) {
   const [registrosMasRepetidos, setRegistrosMasRepetidos] = useState([]);
   const [registroFrecuencia,setRegistroFrecuencia]= useState([]);
   const [tipo,setTipo] = useState("bar");
+  
+
+  const recorrer =(array,atributo)=>{
+    if (array.length >= 5) { 
+      return array.slice(0, 5).map(objeto => objeto[atributo]);
+  } else {
+      return array.map(objeto => objeto[atributo]);
+  }
 
 
+  }
   const recorrerAlumnos = () => {
     setUsuarios(historial.map((element) => element.userRegistration));
   };
@@ -46,9 +55,12 @@ export default function UsuariosFrecuentes({ historial }) {
       return contador;
     }, {});
     setRegistroFrecuencia(frecuenciaRegistros);
-    const registrosOrdenados = Object.values(frecuenciaRegistros).sort((a, b) => frecuenciaRegistros[b] - frecuenciaRegistros[a]);
-    const primerosCincoRegistros = registrosOrdenados.slice(0, 4);
-    setRegistrosMasRepetidos(primerosCincoRegistros);
+    let registrosOrdenadoss = Object.entries(frecuenciaRegistros).map(([clave, valor]) => ({ clave, valor }));
+registrosOrdenadoss.sort((a, b) => b.valor - a.valor);
+
+    const registrosOrdenados = Object.values(frecuenciaRegistros)
+    const primerosCincoRegistros = registrosOrdenados.sort((a, b) => b - a).slice(0, 5);
+    setRegistrosMasRepetidos(registrosOrdenadoss);
   };
 
   useEffect(() => {
@@ -62,14 +74,14 @@ export default function UsuariosFrecuentes({ historial }) {
   useEffect(() => {
   }, [usuarios]);
   var midata = {
-    labels: Object.keys(registroFrecuencia),
+    labels: recorrer(registrosMasRepetidos,"clave"),
     datasets: [ 
         {
-            label: 'Prestamos totales',
-            data: registrosMasRepetidos,
+            label: 'Usuarios',
+            data: recorrer(registrosMasRepetidos,"valor"),
             fill : true,
-            borderColor: ["darkRed","#0fbab7","#301860","blue"],
-            backgroundColor: ["darkRed","#0fbab7","#301860","blue"],
+            borderColor: ["darkRed","#0fbab7","#301860","blue","teal"],
+            backgroundColor: ["darkRed","#0fbab7","#301860","blue","teal"],
             pointRadius: 3,
             pointBorderColor: 'rgba(255, 99, 132)',
             pointBackgroundColor: 'rgba(255, 99, 132)',

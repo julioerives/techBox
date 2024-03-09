@@ -33,7 +33,6 @@ export default function RecordPedidosMes({historial}) {
     const [data,setData]=useState([])
     const [fechaActualFormateada,setFechaActualFormateada] = useState("")
     const [tipo,setTipo] = useState("bar");
-
     const obtenerFechaActualFormateada = () => {
         const fechaActual = new Date();
         
@@ -67,7 +66,7 @@ export default function RecordPedidosMes({historial}) {
 
    },[historial])
    var midata = {
-    labels: ["Extension","HDMI","Adaptador","Ethernet"],
+    labels: Object.keys(data),
     datasets: [ 
         {
             label: 'Prestamos totales',
@@ -101,6 +100,7 @@ const cambiar=({target})=>{
   }
 }
 var misoptions = {
+  responsive:true,
     scales : {
         y : {
             min : 0

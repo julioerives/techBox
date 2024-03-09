@@ -22,7 +22,6 @@ export default function Home() {
     <Goodness></Goodness>
     <Divisor Mensaje={"TechBox"}></Divisor>
     <AboutUs />
-    <Footer></Footer>
     </>
   )
 }
