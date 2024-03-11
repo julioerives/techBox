@@ -5,7 +5,7 @@ import app from '../firebaseConfig';
 const ValidationMatricula = async (matriculaParam) => {
   try {
     const db = getDatabase(app);
-    const usuariosRef = ref(db, 'users/users/');
+    const usuariosRef = ref(db, 'users/');
     const snapshot = await get(usuariosRef);
     if (snapshot.exists()) {
 

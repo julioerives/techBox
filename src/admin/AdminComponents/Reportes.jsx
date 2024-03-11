@@ -33,7 +33,7 @@ export default function Reportes() {
   // Cargar los reportes desde Firebase al cargar el componente o cuando cambien los datos
   useEffect(() => {
     const db = getDatabase(app);
-    const reportsRef = ref(db, "reports/reports");
+    const reportsRef = ref(db, "reports/");
     onValue(reportsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -51,7 +51,7 @@ export default function Reportes() {
 
   const deleteReport = async (id) => {
     const db = getDatabase(app);
-    const reportRef = ref(db, `reports/reports/${id}`);
+    const reportRef = ref(db, `reports/${id}`);
     await remove(reportRef);
   };
 

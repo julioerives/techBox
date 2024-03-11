@@ -17,12 +17,10 @@ export default function Estadisticas() {
 
       if (snapshot.exists()) {
         const myData = snapshot.val();
-        console.log(myData);
         const temporaryArray = Object.keys(myData).map((myFireId) => ({
           ...myData[myFireId],
           itemId: myFireId,
         }));
-        console.log(temporaryArray);
         setHistorial(temporaryArray);
         
       } else {
