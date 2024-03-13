@@ -22,7 +22,7 @@ function UpdateRead() {
 
     const fetchData = async () => {
         const db = getDatabase(app);
-        const dbRef = ref(db, "inventory/items");
+        const dbRef = ref(db, "material/");
         const snapshot = await get(dbRef);
         if(snapshot.exists()){
             const myData = snapshot.val();
@@ -32,6 +32,7 @@ function UpdateRead() {
                     itemId: myFireId
                 }
             })
+            console.log(temporaryArray)
             setData(temporaryArray);
         }else{
             alert("error");
@@ -55,7 +56,7 @@ function UpdateRead() {
                 icon: "success",
               });
               const db = getDatabase(app);
-              const dbRef = ref(db, "inventory/items/"+itemIdParam);
+              const dbRef = ref(db, "material/"+itemIdParam);
               await remove(dbRef);
               fetchData();
             }
@@ -66,7 +67,7 @@ function UpdateRead() {
     
     useEffect(() => {
         fetchData();
-    }, [data]);
+    }, []);
 
     return (
 <div className='w-full flex justify-center'>
@@ -80,9 +81,7 @@ function UpdateRead() {
                 <th scope="col" class="px-6 py-3">
                     Nombre
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Categoria
-                </th>
+               
                 <th scope="col" class="px-6 py-3">
                     Cantidad
                 </th>
@@ -94,11 +93,10 @@ function UpdateRead() {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 text-xs">
             {data.map((item) => (
-                <tr key={item.firebaseId} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td className="px-6 py-4 whitespace-nowrap">{item.itemId}</td>
+                <tr key={item.itemId} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td className="px-6 py-4 whitespace-nowrap">{item.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.category}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.amount}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.parts}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                     <button 
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -112,7 +110,7 @@ function UpdateRead() {
                     </td>
                 </tr>
             ))}
-            {isModalOpen && <UpdateWriteModal closeModal={() => setIsModalOpen(false)} firebaseId={currentFirebaseId} />}
+            {isModalOpen && <UpdateWriteModal closeModal={() => setIsModalOpen(false)} firebaseId={currentFirebaseId} fetchData={fetchData} />}
         </tbody>
     </table>
     </div>

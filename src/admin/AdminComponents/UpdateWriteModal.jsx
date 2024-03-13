@@ -7,27 +7,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function UpdateWrite({closeModal, firebaseId}) {
+function UpdateWrite({closeModal, firebaseId,fetchData}) {
 
   //const navigate = useNavigate(); //Permite la navegación entre páginas
     //const {firebaseId} = useParams(); //Obtiene el id del documento de la URL
 
   let [inputValue1, setInputValue1] = useState(""); //Crea un estado para el valor del input
-  let [inputValue2, setInputValue2] = useState(""); //Crea un estado para el valor del input
+  let [id,setId ] = useState(""); //Crea un estado para el valor del input
   let [inputValue3, setInputValue3] = useState("");
 
     useEffect(() => {
         const fetchData = async () => 
         {
             const db = getDatabase(app);
-            const dbRef = ref(db, "inventory/items/"+firebaseId); //Obtiene la referencia de la colección fruits
+            const dbRef = ref(db, "material/"+firebaseId); //Obtiene la referencia de la colección fruits
             const snapshot = await get(dbRef); //Obtiene los datos de la colección fruits
             console.log(firebaseId, snapshot);
             if(snapshot.exists()){
                 const targetObject = snapshot.val();
+                setId(targetObject.id);
                 setInputValue1(targetObject.name);
-                setInputValue2(targetObject.category);
-                setInputValue3(targetObject.amount);
+                setInputValue3(targetObject.parts);
             }else{
                 alert("error");
             }
@@ -39,11 +39,11 @@ function UpdateWrite({closeModal, firebaseId}) {
   const overwriteData = () => {
     const db = getDatabase(app); //Obtiene la base de datos
     //const newDocRef = ref(db, firebaseId); //Añade un nuevo documento a la colección fruits
-    const newDocRef = ref(db,"inventory/items/"+firebaseId); //Añade un nuevo documento a la colección fruits
+    const newDocRef = ref(db,"material/"+firebaseId);
     set(newDocRef, {
-      name: inputValue1, //Añade un campo llamado name con el valor de inputValue1
-      category: inputValue2, //Añade un campo llamado category con el valor de inputValue2
-      amount: inputValue3
+      id:id,
+      name: inputValue1, //Añade un campo llamado name con el valor de inputValue1 //Añade un campo llamado category con el valor de inputValue2
+      parts: inputValue3
     }).then( () => {
       closeModal();
       Swal.fire({
@@ -51,6 +51,7 @@ function UpdateWrite({closeModal, firebaseId}) {
         text: "Se ha actualizado el material",
         icon: "success"
       }); //Si se guardan los datos, muestra un mensaje
+      fetchData();
     }).catch( (error) => {
       alert("Error: " + error.message)
     })
@@ -77,9 +78,6 @@ function UpdateWrite({closeModal, firebaseId}) {
 
                                 <label className="font-semibold">Nombre</label>
                                 <input type='text' value={inputValue1} onChange={(e) => setInputValue1(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input> 
-
-                                <label className="font-semibold">Categoria</label>
-                                <input type='text' value={inputValue2} onChange={(e) => setInputValue2(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
 
                                 <label className="font-semibold">Cantidad</label>
                                 <input type='number' value={inputValue3} onChange={(e) => setInputValue3(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>

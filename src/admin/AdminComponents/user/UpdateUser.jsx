@@ -102,7 +102,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <div className="flex flex-col space-y-4">
     
-                  <h1 className="text-2xl font-bold mb-4">Actualización de información de material</h1>
+                  <h1 className="text-2xl font-bold mb-4">Actualización de información del usuario</h1>
     
                   <label className="font-semibold">Nombre</label>
                   <input type='text' name='nombre' value={nombre} onChange={onInputChange} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
