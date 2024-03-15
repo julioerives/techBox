@@ -35,8 +35,6 @@ export default function UsuariosFrecuentes({ historial }) {
   const [registrosMasRepetidos, setRegistrosMasRepetidos] = useState([]);
   const [registroFrecuencia,setRegistroFrecuencia]= useState([]);
   const [tipo,setTipo] = useState("bar");
-  
-
   const recorrer =(array,atributo)=>{
     if (array.length >= 5) { 
       return array.slice(0, 5).map(objeto => objeto[atributo]);

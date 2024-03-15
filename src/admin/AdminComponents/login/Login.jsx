@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { user } from "./user";
 import { useNavigate } from "react-router-dom";
 import Error from "../../../components/Error";
-
+import "./../../../../assets/styles/animaciones.css"
 export default function Login({
   isModalOpen,
   setIsModalOpen,
@@ -69,7 +69,7 @@ export default function Login({
               isModalOpen ? "" : "hidden"
             }`}
           >
-            <div className="relative p-4 w-full max-w-md">
+            <div className="relative animaciones p-4 w-full max-w-md">
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <button
                   type="button"

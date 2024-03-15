@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import FormInsert from './FormInsert';
-
+import "./../../../../assets/styles/animaciones.css"
 export default function ModalInsertUser({ modalUser,setModalUser,fetchDataUsers }) {
     const cerrarModal =()=>{
         setModalUser(false)
@@ -14,7 +14,7 @@ export default function ModalInsertUser({ modalUser,setModalUser,fetchDataUsers 
   
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
   
-          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full relative">
+          <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full relative animaciones">
           
             
                   <FormInsert setModalUser={setModalUser} fetchDataUsers={fetchDataUsers}></FormInsert>

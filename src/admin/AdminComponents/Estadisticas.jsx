@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import app from '../../firebaseConfig';
 import RecordPedidos from './stats/RecordPedidos';
-import { getDatabase, ref, get, remove } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 import RecordPedidosMes from './stats/RecordPedidosMes';
 import PedidosSemana from './stats/PedidosSemana';
 import UsuariosFrecuentes from './stats/UsuariosFrecuentes';
 import RegistroHistoria from './stats/RegistroHistoria';
 import UsuariosMes from './stats/UsuariosMes';
+
 export default function Estadisticas() {
-  const [historial, setHistorial] = useState([])
+  const [data, setData] = useState([]);
+  const [historial, setHistorial] = useState([]);
+
   const fetchHistorial = async () => {
     try {
       const db = getDatabase(app);
-      const dbRef = ref(db, "loans/history");
+      const dbRef = ref(db, "loans/");
       const snapshot = await get(dbRef);
 
       if (snapshot.exists()) {
@@ -21,8 +24,7 @@ export default function Estadisticas() {
           ...myData[myFireId],
           itemId: myFireId,
         }));
-        setHistorial(temporaryArray);
-        
+        setData(temporaryArray);
       } else {
         console.log("No se pudo conectar");
       }
@@ -31,36 +33,58 @@ export default function Estadisticas() {
     }
   };
 
+  const formatear = async () => {
+    let nuevoHistorial = [];
+  
+    await Promise.all(data.map(async (elements) => {
+      for (const orderId in elements.orders) {
+        const orderDetails = elements.orders[orderId];
+        const detallesOrden = orderDetails.details.split(",");
+        detallesOrden.forEach(element => {
+          nuevoHistorial.push({
+            date: orderDetails.createdAt,
+            item: element.slice(0, -2),
+            userRegistration: elements.itemId
+          });
+        });
+      }
+    }));
+  
+    setHistorial(nuevoHistorial);
+  
+    console.log(historial);
+  };
+
   useEffect(() => {
     fetchHistorial();
   }, []);
+
   useEffect(() => {
-    console.log("Historial actualizado:", historial);
-  }, [historial]);
+    formatear();
+  }, [data]); // Ejecutar formatear() cada vez que data cambie
+
   return (
     <div className='flex gap-8 flex-col'>
       <h1 className='text-center font-medium text-3xl'>Material</h1>
       <hr />
-       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-       <RecordPedidos historial={historial}></RecordPedidos>
-  
-    
-    <RecordPedidosMes historial={historial}></RecordPedidosMes>
-</div>
-<div className="w-full h-54 flex items-center justify-center">
-  
-  <PedidosSemana historial={historial}></PedidosSemana></div>
-  <h1 className='text-center font-medium text-3xl'>General</h1>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+        <RecordPedidos historial={historial} />
+        <RecordPedidosMes historial={historial} />
+      </div>
+      <div className="w-full h-54 flex items-center justify-center">
+        <PedidosSemana historial={historial} />
+      </div>
+      <h1 className='text-center font-medium text-3xl'>General</h1>
       <hr />
-<div className="grid h-screen grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
-<RegistroHistoria historial={historial}></RegistroHistoria>
-</div>
-<h1 className='text-center font-medium text-3xl'>Usuarios</h1>
+      <div className="grid h-screen grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
+        <RegistroHistoria historial={historial} />
+      </div>
+      <h1 className='text-center font-medium text-3xl'>Usuarios</h1>
       <hr />
-<div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
- <UsuariosFrecuentes historial={historial}></UsuariosFrecuentes>
- <UsuariosMes historial={historial}></UsuariosMes>
-</div>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+        <UsuariosFrecuentes historial={historial} />
+        <UsuariosMes historial={historial} />
+      </div>
     </div>
-  )
+  );
 }

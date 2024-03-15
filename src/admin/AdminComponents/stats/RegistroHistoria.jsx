@@ -29,7 +29,7 @@ export default function RegistroHistoria({ historial }) {
   const [registroFrecuencia, setRegistroFrecuencia] = useState([]);
   const [tipo, setTipo] = useState("bar");
   const [fechas,setFechas] = useState({});
-
+  console.log(historial)
   const recorrerAlumnos = () => {
     setUsuarios(historial.map((element) => [element.date.substring(3), element.item]));
   };

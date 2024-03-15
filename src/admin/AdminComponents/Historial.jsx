@@ -16,7 +16,7 @@ export default function Historial() {
     const fetchData = async () => {
       try {
         const db = getDatabase(app);
-        const dbRef = ref(db, "loans/history");
+        const dbRef = ref(db, "loans/");
         const snapshot = await get(dbRef);
   
         if (snapshot.exists()) {
@@ -67,16 +67,19 @@ export default function Historial() {
         <thead class="text-xs text-white uppercase bg-teal-600 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    ID
+                    ID usuario
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Cantidad
+                    ID
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Fecha
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Matricula
+                   Material
+                </th>
+                <th scope="col" class="px-6 py-3">
+                   Estado
                 </th>
                 <th scope="col" class="px-6 py-3">
                    Ver
@@ -85,25 +88,29 @@ export default function Historial() {
 
             </tr>
         </thead>
-        <tbody >
-          {historial &&
-          historial.slice(0,cantidad).map((user) => (
-            <tr key={user.itemId} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <td className="px-6 py-4 whitespace-nowrap">{user.itemId}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{user.amount}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {user.date}
-              </td>
-              <td className=" px-6 py-4 whitespace-nowrap">
-                {user.userRegistration}
-              </td>
-              <td className='px-6 py-4 whitespace-nowrap'>
-              <button onClick={()=> showUser(user.userRegistration)} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3.5 py-1.5  me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="#ffffff" d="M14 12c-1.095 0-2-.905-2-2c0-.354.103-.683.268-.973C12.178 9.02 12.092 9 12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3c1.641 0 3-1.358 3-3c0-.092-.02-.178-.027-.268c-.29.165-.619.268-.973.268"/><path fill="#ffffff" d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316l-.105-.316C21.927 11.617 19.633 5 12 5m0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5c-.504 1.158-2.578 5-7.926 5"/></svg></button>
-              </td>
-            </tr>
-          ))
-            }
-        </tbody>
+        <tbody>
+  {historial &&
+    historial.slice(0, cantidad).map((user) => (
+      <React.Fragment key={user.itemId}>
+      
+        {Object.keys(user.orders).map((orderId) => (
+          <tr key={orderId} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td className="px-6 py-4 whitespace-nowrap">{user.itemId}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{orderId}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].createdAt}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].details}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].status}</td>
+            <td className='px-6 py-4 whitespace-nowrap'>
+              <button onClick={() => showUser(user.itemId)} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3.5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
+                  <path fill="#ffffff" d="M14 12c-1.095 0-2-.905-2-2c0-.354.103-.683.268-.973C12.178 9.02 12.092 9 12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3c1.641 0 3-1.358 3-3c0-.092-.02-.178-.027-.268c-.29.165-.619.268-.973.268"/><path fill="#ffffff" d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316l-.105-.316C21.927 11.617 19.633 5 12 5m0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5c-.504 1.158-2.578 5-7.926 5"/></svg>
+              </button>
+            </td>
+          </tr>
+        ))}
+      </React.Fragment>
+    ))}
+</tbody>
       </table>
       <div className='w-full p-4 flex items-center justify-center gap-5'>
         <button onClick={aumentar} type="button" class=" flex gap-3 focus:outline-none text-white bg-green-800 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Ver mas <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="#ffffff" d="M11 13v3q0 .425.288.713T12 17q.425 0 .713-.288T13 16v-3h3q.425 0 .713-.288T17 12q0-.425-.288-.712T16 11h-3V8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8v3H8q-.425 0-.712.288T7 12q0 .425.288.713T8 13zm1 9q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8"/></svg></button>

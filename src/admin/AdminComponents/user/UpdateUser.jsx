@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import app from "../../../firebaseConfig";
 import { getDatabase, ref, set, get } from "firebase/database";
+import "./../../../../assets/styles/animaciones.css";
 export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFirebase, fetchDataUsers}) {
     const [input, setInput] =useState({
         nombre: "",
@@ -62,7 +63,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
   }
   if (modalUpdateUsers){
     return (
-      <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div className="fixed animation z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <button onClick={() => setModalUpdateUsers(false)} className="absolute top-2 right-2 bg-transparent text-gray-700 hover:bg-gray-50 sm:text-sm">
         <FontAwesomeIcon icon={faTimes} />
       </button>

@@ -6,7 +6,7 @@ import { getDatabase, ref, set, get } from "firebase/database";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
+import "./../../../assets/styles/animaciones.css";
 function UpdateWrite({closeModal, firebaseId,fetchData}) {
 
   //const navigate = useNavigate(); //Permite la navegación entre páginas
@@ -60,7 +60,7 @@ function UpdateWrite({closeModal, firebaseId,fetchData}) {
   return (
 <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <button onClick={closeModal} className="absolute top-2 right-2 bg-transparent text-gray-700 hover:bg-gray-50 sm:text-sm"><FontAwesomeIcon icon={faTimes} /></button>
-    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div className="flex items-end animaciones justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
