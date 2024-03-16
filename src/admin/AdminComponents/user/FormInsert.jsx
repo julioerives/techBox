@@ -1,35 +1,46 @@
 import React, { useState } from 'react';
 import app from "../../../firebaseConfig";
 import { getDatabase, ref, set, push } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 export default function FormInsert({setModalUser,fetchDataUsers}) {
   const [input, setInput] = useState({
     nombre: "",
     especialidad: "",
     matricula: "",
+    correo:"",
     password: ""
   });
 
-  const { nombre, especialidad, matricula, password } = input;
+  const { nombre, especialidad, matricula,correo, password } = input;
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
-    console.log(value);
     setInput({
       ...input,
       [name]: value
     });
   };
-  const insert=()=>{
-    const db = getDatabase(app);
-    const newDocRef = push(ref(db, "users/"));
-    set(newDocRef,{
-        nombre: input.nombre,
-        especialidad: input.especialidad,
-        matricula: input.matricula,
-        password: input.password
-    }).then(()=> fetchDataUsers()
-    ).catch((error)=> console.log(error))
-    setModalUser(false)
+  const insert=async ()=>{
+    const auth = getAuth();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, correo, password);
+      console.log(userCredential.user)
+      const idAutenticacion = userCredential.user.uid; 
+      const db = getDatabase(app);
+      const newDocRef = push(ref(db, "users/"));
+      await set(newDocRef, {
+        nombre,
+        especialidad,
+        matricula,
+        correo,
+        password,
+        idAutenticacion
+      });
+      fetchDataUsers();
+      setModalUser(false);
+    } catch (error) {
+      console.error("Error al insertar usuario:", error);
+    }
   }
 
   return (
@@ -93,7 +104,14 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
             onChange={onInputChange}
             className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"
           />
-
+          <label className="font-semibold">correo</label>
+          <input
+            type="mail"
+            name="correo"
+            value={correo}
+            onChange={onInputChange}
+            className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"
+          />
           <label className="font-semibold">Contraseña</label>
           <input
             type="text"

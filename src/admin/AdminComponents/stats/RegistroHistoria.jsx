@@ -29,7 +29,6 @@ export default function RegistroHistoria({ historial }) {
   const [registroFrecuencia, setRegistroFrecuencia] = useState([]);
   const [tipo, setTipo] = useState("bar");
   const [fechas,setFechas] = useState({});
-  console.log(historial)
   const recorrerAlumnos = () => {
     setUsuarios(historial.map((element) => [element.date.substring(3), element.item]));
   };
@@ -50,6 +49,10 @@ export default function RegistroHistoria({ historial }) {
 
     const registrosOrdenados = Object.keys(frecuenciaRegistros).sort();
     setRegistrosMasRepetidos(registrosOrdenados);
+    registrosMasRepetidos.map((element) => {
+      console.log("elemento ",element.substring(6)," Repetidos ",registroFrecuencia[element])
+      return (element.substring(6) === "Et") ? registroFrecuencia[element] : null;
+    }).filter(valor => valor !== null)
   };
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export default function RegistroHistoria({ historial }) {
         {
             label: 'HDMI',
             data:registrosMasRepetidos.map((element) => {
-              return element.substring(6) === "HDMI" ? registroFrecuencia[element] : null;
+              return (element.substring(6) === "HD")  ? registroFrecuencia[element] : null;
             }).filter(valor => valor !== null),
             borderColor: 'rgb(15, 186, 183)',
             backgroundColor: 'rgba(15, 186, 183)',
@@ -81,7 +84,7 @@ export default function RegistroHistoria({ historial }) {
         }, {
           label: 'Ethernet',
           data: registrosMasRepetidos.map((element) => {
-            return element.substring(6) === "Ethernet" ? registroFrecuencia[element] : null;
+            return (element.substring(6) === "Et") ? registroFrecuencia[element] : null;
           }).filter(valor => valor !== null),
 
           borderColor: 'blue',
@@ -89,7 +92,7 @@ export default function RegistroHistoria({ historial }) {
       },{
         label: 'Extension',
         data: registrosMasRepetidos.map((element) => {
-          return element.substring(6) === "Extension" ? registroFrecuencia[element] : null;
+          return (element.substring(6) === "Ex") ? registroFrecuencia[element] : null;
         }).filter(valor => valor !== null),
         borderColor: 'rgb(139, 0, 0)',
         backgroundColor: 'rgb(139, 0, 0)',
@@ -97,7 +100,7 @@ export default function RegistroHistoria({ historial }) {
     },{
       label: 'Adaptador',
       data: registrosMasRepetidos.map((element) => {
-        return element.substring(6) === "Adaptador" ? registroFrecuencia[element] : null;
+        return element.substring(6) === "Ad" ? registroFrecuencia[element] : null;
       }).filter(valor => valor !== null),
       borderColor: '#301860',
       backgroundColor: '#301860',

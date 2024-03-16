@@ -40,6 +40,7 @@ export default function Estadisticas() {
       for (const orderId in elements.orders) {
         const orderDetails = elements.orders[orderId];
         const detallesOrden = orderDetails.details.split(",");
+        console.log(detallesOrden)
         detallesOrden.forEach(element => {
           nuevoHistorial.push({
             date: orderDetails.createdAt,
@@ -49,7 +50,7 @@ export default function Estadisticas() {
         });
       }
     }));
-  
+    console.log(nuevoHistorial);
     setHistorial(nuevoHistorial);
   
     console.log(historial);

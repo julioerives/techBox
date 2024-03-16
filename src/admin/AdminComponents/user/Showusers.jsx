@@ -7,7 +7,6 @@ import app from "../../../firebaseConfig";
 import { getDatabase, ref, get, remove } from "firebase/database";
 import DeleteUsers from "./DeleteUsers";
 import ModalInsertUser from './ModalInsertUser';
-
 import UpdateUser from "./UpdateUser";
 
 export default function Showusers() {
@@ -137,6 +136,9 @@ export default function Showusers() {
                     Matricula
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Correo
+                </th>
+                <th scope="col" class="px-6 py-3">
                 Contraseña
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -156,6 +158,9 @@ export default function Showusers() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {user.matricula}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {user.correo}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.password}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
