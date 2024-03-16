@@ -32,7 +32,7 @@ export default function Login({
     event.preventDefault();
     const isEmpty = Object.keys(input).some((key) => input[key] === "")
     if(!isEmpty){
-      if (input.nombre === User.nameKey && input.password === User.contraseña) {
+      if (input.nombre == User.Usuario && input.password == User.password) {
         navigate("/Admin", {
           replace: true,
           state: {
