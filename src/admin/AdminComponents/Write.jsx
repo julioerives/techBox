@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import app from "../../firebaseConfig";
 import { getDatabase, ref, set, get, push  } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-
+import Error from '../../components/Error';
 function Write({closeModal}) {
   
     //const navigate = useNavigate(); //Permite la navegación entre páginas
@@ -12,7 +12,8 @@ function Write({closeModal}) {
     let [inputValue1, setInputValue1] = useState(""); //nombre
     let [inputValue3, setInputValue3] = useState(""); //  cantidad
     let [data, setData] = useState([]);
-
+    const [error,setError] = useState(false);
+    const [errorDesc,setErrorDesc] = useState("Error")
     useEffect(() => {
       const fetchData = async () => {
           const db = getDatabase(app);
@@ -30,16 +31,27 @@ function Write({closeModal}) {
               alert("error");
           }
       };
-
       fetchData(); // Llamada a fetchData dentro del efecto
-
   }, []);
     const saveData = () => {
-      
+      console.log("input 1 "+inputValue1.length+" input 2 "+inputValue3.length)
+      const idOlder = data.map(element => parseInt(element.id)).sort((a,b)=> b-a)
+
+      if(inputValue1.length<1 || inputValue3.length<1){
+        setError(true);
+        setErrorDesc("Campo o campos vacios")
+        return;
+      }
+      if(isNaN(parseInt(inputValue3))){
+        setError(true);
+        setErrorDesc("No se ingreso un numero en el material")
+        return
+      }
       const db = getDatabase(app); //Obtiene la base de datos
       const newDocRef = push(ref(db,"material/")); //Añade un nuevo documento a la colección fruits
       set(newDocRef, {
-        id: (data.length+1).toString(),
+        avalaible:inputValue3,
+        id: (idOlder[0]+1).toString(),
         name: inputValue1, //Añade un campo llamado name con el valor de inputValue1 //Añade un campo llamado categoria con el valor de inputValue2
         parts: inputValue3
       }).then( () => {

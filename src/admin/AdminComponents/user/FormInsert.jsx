@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import app from "../../../firebaseConfig";
 import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import Error from '../../../components/Error';
 export default function FormInsert({setModalUser,fetchDataUsers}) {
   const [input, setInput] = useState({
     nombre: "",
@@ -10,9 +11,9 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
     correo:"",
     password: ""
   });
-
+  const [error,setError]= useState(false)
   const { nombre, especialidad, matricula,correo, password } = input;
-
+  const [errorDesc,setErrorDesc] = useState("error")
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setInput({
@@ -23,8 +24,18 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
   const insert=async ()=>{
     const auth = getAuth();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, correo, password);
-      console.log(userCredential.user)
+      
+     if(nombre.length <1 || especialidad.length<1 || matricula.length<1 || correo.length<1 ){
+      setErrorDesc("Campo o campos vacios");
+      setError(true)
+      return;
+     }
+     if( password.length<6){
+      setErrorDesc("La contraseña tiene que tener mas de 6 caracteres");
+      setError(true)
+      return;
+     }
+     const userCredential = await createUserWithEmailAndPassword(auth, correo, password);
       const idAutenticacion = userCredential.user.uid; 
       const db = getDatabase(app);
       const newDocRef = push(ref(db, "users/"));
@@ -125,6 +136,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
             Guardar Datos
           </button>
         </div>
+        {error && <Error mensaje={errorDesc}></Error>}
       </div>
     </div>
   </div>

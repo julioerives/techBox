@@ -24,17 +24,17 @@ ChartJS.register(
 );
 
 export default function RegistroHistoria({ historial }) {
-  const [usuarios, setUsuarios] = useState([]);
+  const [registros, setRegistros] = useState([]);
   const [registrosMasRepetidos, setRegistrosMasRepetidos] = useState([]);
   const [registroFrecuencia, setRegistroFrecuencia] = useState([]);
   const [tipo, setTipo] = useState("bar");
   const [fechas,setFechas] = useState({});
-  const recorrerAlumnos = () => {
-    setUsuarios(historial.map((element) => [element.date.substring(3), element.item]));
+  const recorrer = () => {
+    setRegistros(historial.map((element) => [element.date.substring(3), element.item]));
   };
 
   const obtenerRegistrosMasRepetidos = () => {
-    const frecuenciaRegistros = usuarios.reduce((contador, [fecha, registro]) => {
+    const frecuenciaRegistros = registros.reduce((contador, [fecha, registro]) => {
       const clave = `${fecha}|${registro}`;
       contador[clave] = (contador[clave] || 0) + 1;
       return contador;
@@ -49,22 +49,18 @@ export default function RegistroHistoria({ historial }) {
 
     const registrosOrdenados = Object.keys(frecuenciaRegistros).sort();
     setRegistrosMasRepetidos(registrosOrdenados);
-    registrosMasRepetidos.map((element) => {
-      console.log("elemento ",element.substring(6)," Repetidos ",registroFrecuencia[element])
-      return (element.substring(6) === "Et") ? registroFrecuencia[element] : null;
-    }).filter(valor => valor !== null)
   };
 
   useEffect(() => {
-    recorrerAlumnos();
+    recorrer();
   }, [historial]);
 
   useEffect(() => {
     obtenerRegistrosMasRepetidos();
-  }, [usuarios]);
+  }, [registros]);
 
   useEffect(() => {
-  }, [usuarios]);
+  }, [registros]);
   const todos = Object.entries(registroFrecuencia)
   .map(([clave, valor]) => {
     return clave.substring(6) !== null ? valor : null;
@@ -119,7 +115,7 @@ export default function RegistroHistoria({ historial }) {
     }
 };
   return (
-    <div className="h-54 rounded-lg  shadow-lg  px-24 py-4 flex flex-col items-center justify-center">
+    <div className="h-54 rounded-lg  shadow-lg  px-24 py-4 flex flex-col sm:overflow-x-auto sm:px-2 sm:py-0 items-center justify-center">
     <div className='flex gap-4'>
     
       <h1 className='text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl'>Pedidos mes a mes</h1>

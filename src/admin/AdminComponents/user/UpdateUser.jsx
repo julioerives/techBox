@@ -4,13 +4,16 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import app from "../../../firebaseConfig";
 import { getDatabase, ref, set, get } from "firebase/database";
 import "./../../../../assets/styles/animaciones.css";
+import Error from '../../../components/Error';
+import "./../../../../assets/styles/animaciones.css"
 export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFirebase, fetchDataUsers}) {
     const [input, setInput] =useState({
         nombre: "",
     especialidad: "",
-    matricula: "",
-    password: ""
+    matricula: ""
     })
+    const [error,setError] =useState(false);
+    const [errorDesc,setErrorDesc] =useState("Error")
     useEffect(() => {
         const fetchData = async () => 
         {
@@ -19,12 +22,9 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
             const snapshot = await get(dbRef);
             if(snapshot.exists()){
                 const targetObject = snapshot.val();
-                setInput({
-                    nombre: targetObject.nombre,
-                    especialidad: targetObject.especialidad,
-                    matricula: targetObject.matricula,
-                    password: targetObject.password
-                })
+                console.log("Target ",targetObject)
+                setInput(targetObject)
+                console.log(input)
             }else{
                 console.log("Error")
             }
@@ -32,7 +32,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
         fetchData();
     }, [idFirebase])
 
-  const { nombre, especialidad, matricula, password } = input;
+  const { nombre, especialidad, matricula } = input;
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     console.log(value);
@@ -42,13 +42,19 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
     });
   };
   const overwriteData = () => {
+    console.log("MAtricula "+matricula.length+" especialidad "+especialidad.length+" nombre "+nombre.length);
+    if(nombre.length <1 || especialidad.length<1 || matricula.length<1){
+      setErrorDesc("Campo o campos vacios");
+      setError(true);
+      return
+    }
     const db = getDatabase(app);
     const newDocRef = ref(db,"users/"+idFirebase);
     set(newDocRef, {
+      ...input,
       nombre: nombre,
       especialidad: especialidad,
-      matricula: matricula,
-      password: password
+      matricula: matricula
     }).then( () => {
       setModalUpdateUsers(false);
       fetchDataUsers();
@@ -58,7 +64,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
         icon: "success"
       });
     }).catch( (error) => {
-      alert("Error: " + error.message)
+      console.error(error);
     })
   }
   if (modalUpdateUsers){
@@ -73,7 +79,7 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
     
         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
     
-        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full relative">
+        <div className="inline-block animaciones align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full relative">
     
         <button
         type="button"
@@ -114,12 +120,10 @@ export default function UpdateUser({modalUpdateUsers,setModalUpdateUsers, idFire
                   <label className="font-semibold">Matrícula</label>
                   <input type='text' name='matricula' value={matricula} onChange={onInputChange} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
     
-                  <label className="font-semibold">Contraseña</label>
-                  <input type='text' name='password' value={password} onChange={onInputChange} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
-    
-                  <button onClick={overwriteData} className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700">
+                  <button onClick={overwriteData} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-teal-700">
                     Actualizar
                   </button>
+                  {error &&  <Error mensaje={errorDesc}></Error>}
     
                 </div>
               </div>
