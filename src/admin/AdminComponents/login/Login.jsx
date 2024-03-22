@@ -144,7 +144,7 @@ export default function Login({
                         type="submit"
                         className="inline-block rounded-lg bg-teal-500 px-5 py-3 text-sm font-medium text-white"
                       >
-                        Sign in
+                        Iniciar
                       </button>
                     </div>
                   </form>

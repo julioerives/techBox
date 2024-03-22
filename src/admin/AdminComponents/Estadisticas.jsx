@@ -35,18 +35,22 @@ export default function Estadisticas() {
 
   const formatear = async () => {
     let nuevoHistorial = [];
-  
     await Promise.all(data.map(async (elements) => {
       for (const orderId in elements.orders) {
         const orderDetails = elements.orders[orderId];
         const detallesOrden = orderDetails.details.split(",");
         console.log(detallesOrden)
         detallesOrden.forEach(element => {
-          nuevoHistorial.push({
-            date: orderDetails.createdAt,
-            item: element.slice(0, -2),
-            userRegistration: elements.itemId
-          });
+          console.log(element.slice(3))
+          
+          for (let index = 0; index < element.slice(3); index++) {
+            nuevoHistorial.push({
+              date: orderDetails.createdAt,
+              item: element.slice(0, -2),
+              userRegistration: elements.itemId
+            });
+          }
+          
         });
       }
     }));
@@ -68,12 +72,13 @@ export default function Estadisticas() {
     <div className='flex gap-8 flex-col'>
       <h1 className='text-center font-medium text-3xl'>Material</h1>
       <hr />
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
         <RecordPedidos historial={historial} />
         <RecordPedidosMes historial={historial} />
+        <PedidosSemana historial={historial} />
+
       </div>
       <div className="w-full h-54 flex items-center justify-center">
-        <PedidosSemana historial={historial} />
       </div>
       <h1 className='text-center font-medium text-3xl'>General</h1>
       <hr />

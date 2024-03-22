@@ -38,7 +38,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
      const userCredential = await createUserWithEmailAndPassword(auth, correo, password);
       const idAutenticacion = userCredential.user.uid; 
       const db = getDatabase(app);
-      const newDocRef = push(ref(db, "users/"));
+      const newDocRef = ref(db, "users/"+idAutenticacion);
       await set(newDocRef, {
         nombre,
         especialidad,

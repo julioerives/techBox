@@ -19,12 +19,12 @@ export function Navs() {
             <span className="ml-3 text-xl">TechBox</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
-            <a className="mr-5 hover:text-gray-900">First Link</a>
+          <Link to={"/Ingles"} className="mr-5 hover:text-gray-900">
+             Ingles
+            </Link>
             <Link to={"/Reportes"} className="mr-5 hover:text-gray-900">
               Reportes
             </Link>
-            <a className="mr-5 hover:text-gray-900">Third Link</a>
-            <a className="mr-5 hover:text-gray-900">Fourth Link</a>
           </nav>
           <a
             onClick={() => setIsModalOpen(true)}

@@ -35,7 +35,7 @@ export default function Showusers() {
           ...myData[myFireId],
           itemId: myFireId,
         }));
-        setUsers(temporaryArray);
+        setUsers(temporaryArray.filter(user=> user.itemId != "Admin"));
         setUsersShow(temporaryArray.filter(user=> user.itemId != "Admin"));
       } else {
         alert("Error al obtener datos");
@@ -47,7 +47,6 @@ export default function Showusers() {
   
   const filterUsers = ({ target }) => {
     const { value } = target;
-  
     if (!value) {
       setUsersShow(users);
     } else {
