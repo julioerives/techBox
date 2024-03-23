@@ -60,7 +60,14 @@ export default function PedidosSemana({ historial }) {
     const week1 = new Date(date.getFullYear(), 0, 4);
     return 1 + Math.round(((date - week1) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
   };
-
+  useEffect(() => {
+    console.log(obtenerNumeroSemana("09-03-24"))
+    setFechaActualFormateada(obtenerFechaActualFormateada());
+    const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
+    setDatosFiltrados(datosFiltrados);
+    items();
+    console.log(data);
+  }, [historial, fechaActualFormateada]);
   const items = () => {
     const nuevoConteo = {};
 
@@ -75,14 +82,7 @@ export default function PedidosSemana({ historial }) {
     setData(nuevoConteo);
   };
 
-  useEffect(() => {
-    console.log(obtenerNumeroSemana("09-03-24"))
-    setFechaActualFormateada(obtenerFechaActualFormateada());
-    const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
-    setDatosFiltrados(datosFiltrados);
-    items();
-    console.log(data);
-  }, [historial, fechaActualFormateada]);
+
 
   const midata = {
     labels: Object.keys(data),
@@ -108,13 +108,13 @@ export default function PedidosSemana({ historial }) {
           return"radar";
         }
         else if(tipoAnterio=="radar") return "pie";
-        else return "bar";
+        return "bar";
       })
     }else{
       setTipo((tipoAnterio)=>{
         if(tipoAnterio=="bar") return "pie";
         else if(tipoAnterio=="pie") return "radar";
-        else return "bar";
+        return "bar";
       })
     }
   }

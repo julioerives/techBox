@@ -60,7 +60,8 @@ export default function RecordPedidosMes({historial}) {
    useEffect(()=>{
     
       setFechaActualFormateada(obtenerFechaActualFormateada())
-      const datosFiltrados = historial.filter(element => element.date.substring(3) === fechaActualFormateada.substring(3));
+      const history = historial
+      const datosFiltrados = history.filter(element => element.date.substring(3) === fechaActualFormateada.substring(3));
       setData(datosFiltrados);
    items(datosFiltrados)
 

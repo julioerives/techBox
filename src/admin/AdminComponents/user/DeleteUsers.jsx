@@ -2,6 +2,7 @@ import React from 'react'
 import app from "../../../firebaseConfig";
 import { getDatabase, ref, remove } from "firebase/database";
 import { getAuth, deleteUser } from 'firebase/auth';
+import { showMessage } from '../../../showMessage';
 const DeleteUsers = async ( item, fetchDataUsers, setUsers) => {
     try{
     const db = getDatabase(app);
@@ -9,7 +10,8 @@ const DeleteUsers = async ( item, fetchDataUsers, setUsers) => {
     await remove(dbRef);
     fetchDataUsers();
     }catch(e){
-        console.error(e);
+        showMessage("Ocurrio un error","Fatal");
+        
     }
 }
 

@@ -114,14 +114,18 @@ export default function RegistroHistoria({ historial }) {
         }
     }
 };
-  return (
-    <div className="h-54 rounded-lg  shadow-lg  px-24 py-4 flex flex-col sm:overflow-x-auto sm:px-2 sm:py-0 items-center justify-center">
-    <div className='flex gap-4'>
-    
-      <h1 className='text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl'>Pedidos mes a mes</h1>
-     
-      </div>
-      <Line options={misoptions} data={midata} />
-   </div>
-  );
+return (
+  <div className="h-54 rounded-lg shadow-lg px-24 py-4 flex flex-col sm:overflow-x-auto sm:px-2 sm:py-0 items-center justify-center">
+    {Object.values(registrosMasRepetidos).length === 0 ? (
+      <>Cargando...</>
+    ) : (
+      <>
+        <div className='flex gap-4'>
+          <h1 className='text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl'>Pedidos mes a mes</h1>
+        </div>
+        <Line options={misoptions} data={midata} />
+      </>
+    )}
+  </div>
+);
 } 

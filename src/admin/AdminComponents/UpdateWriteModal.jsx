@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import app from "../../firebaseConfig";
 import { getDatabase, ref, set, get } from "firebase/database";
+import { showMessage } from '../../showMessage';
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +31,8 @@ function UpdateWrite({closeModal, firebaseId,fetchData}) {
                 setInputValue1(targetObject.name);
                 setInputValue3(targetObject.parts);
             }else{
-                alert("error");
+        showMessage("No se pudieron obtener los datos intente mas tarde","Fatal");
+                
             }
         }
         fetchData();

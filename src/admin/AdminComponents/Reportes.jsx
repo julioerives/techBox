@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import app from "../../firebaseConfig";
 import { getDatabase, ref, remove, onValue } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { showMessage } from "../../showMessage";
 import {
   faEye,
   faEyeSlash,
@@ -32,7 +33,8 @@ export default function Reportes() {
 
   // Cargar los reportes desde Firebase al cargar el componente o cuando cambien los datos
   useEffect(() => {
-    const db = getDatabase(app);
+    try{
+      const db = getDatabase(app);
     const reportsRef = ref(db, "reports/");
     onValue(reportsRef, (snapshot) => {
       const data = snapshot.val();
@@ -47,6 +49,9 @@ export default function Reportes() {
         setReports([]);
       }
     });
+    }catch(e){
+      showMessage("Error al mostrar los datos","Fatal")
+    }
   }, []);
 
   const deleteReport = async (id) => {

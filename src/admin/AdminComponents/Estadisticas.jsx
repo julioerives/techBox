@@ -7,6 +7,7 @@ import PedidosSemana from './stats/PedidosSemana';
 import UsuariosFrecuentes from './stats/UsuariosFrecuentes';
 import RegistroHistoria from './stats/RegistroHistoria';
 import UsuariosMes from './stats/UsuariosMes';
+import { showMessage } from '../../showMessage';
 
 export default function Estadisticas() {
   const [data, setData] = useState([]);
@@ -26,10 +27,10 @@ export default function Estadisticas() {
         }));
         setData(temporaryArray);
       } else {
-        console.log("No se pudo conectar");
+        showMessage("No se pudieron obtener los datos intente mas tarde","Fatal");
       }
     } catch (error) {
-      console.error("Error al obtener datos:", error.message);
+      showMessage("No se pudieron obtener los datos intente mas tarde","Fatal");
     }
   };
 

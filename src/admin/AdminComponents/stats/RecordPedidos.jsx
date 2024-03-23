@@ -52,8 +52,8 @@ export default function RecordPedidos({ historial }) {
   })
     const items=()=>{
         const nuevoConteo = {};
-  
-      historial.forEach((item) => {
+        const history = historial
+      history.forEach((item) => {
         const valor = item.item;
         if (!nuevoConteo[valor]) {
           nuevoConteo[valor] = 1;
@@ -63,11 +63,11 @@ export default function RecordPedidos({ historial }) {
       });
       setConteo(nuevoConteo);
       setMidata({
-        labels: Object.keys(conteo),
+        labels: Object.keys(nuevoConteo),
         datasets: [ 
             {
                 label: 'Prestamos totales',
-                data: Object.values(conteo),
+                data: Object.values(nuevoConteo),
                 fill : true,
                 borderColor: ["darkRed","#0fbab7","#301860","blue"],
                 backgroundColor: ["darkRed","#0fbab7","#301860","blue"],
@@ -81,7 +81,7 @@ export default function RecordPedidos({ historial }) {
     }
     useEffect(() => {
       items()
-      console.log("Data ",midata)
+      console.log("Data ",conteo)
     }, [historial]);
 
   
@@ -124,7 +124,7 @@ export default function RecordPedidos({ historial }) {
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="m11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707l-1.414 1.414L15.586 11H6v2h9.586z"/></svg>
       </button>
       </div>
-      {tipo === 'bar' ? (
+      {Object.keys(conteo).length==0 ?(<>Cargando...</>) :tipo === 'bar' ? (
         <Bar data={midata} options={misoptions} />
       ) : tipo === 'radar' ? (
         <Radar data={midata}  />

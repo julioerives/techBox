@@ -3,6 +3,7 @@ import app from "../../../firebaseConfig";
 import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import Error from '../../../components/Error';
+import { showMessage } from '../../../showMessage';
 export default function FormInsert({setModalUser,fetchDataUsers}) {
   const [input, setInput] = useState({
     nombre: "",
@@ -50,7 +51,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
       fetchDataUsers();
       setModalUser(false);
     } catch (error) {
-      console.error("Error al insertar usuario:", error);
+      showMessage("Ocurrio un error","Fatal");
     }
   }
 
