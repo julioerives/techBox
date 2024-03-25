@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import app from "../../firebaseConfig";
+import app from '../../../firebaseConfig';
 import { getDatabase, ref, get, remove } from "firebase/database";
 //import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -41,8 +41,8 @@ function UpdateRead() {
 
     const deleteData = async (itemIdParam) => {
         Swal.fire({
-            title: "Estas seguro?",
-            text: "Borraras el material",
+            title: "Are you sure?",
+            text: "You will delete this item",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#008080",
@@ -51,8 +51,8 @@ function UpdateRead() {
           }).then(async (result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Borrado",
-                text: "El material ha sido borrado",
+                title: "Deleted",
+                text: "This item has been deleted",
                 icon: "success",
               });
               const db = getDatabase(app);
@@ -75,22 +75,21 @@ function UpdateRead() {
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-white uppercase bg-teal-600 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    ID
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nombre
-                </th>
-               
-                <th scope="col" class="px-6 py-3">
-                    Cantidad
-                </th>
-                <th scope="col" class="px-6 py-3">
-                   Disponible
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Acciones
-                </th>
+            <th scope="col" class="px-6 py-3">
+    ID
+</th>
+<th scope="col" class="px-6 py-3">
+    Name
+</th>
+<th scope="col" class="px-6 py-3">
+    Amount
+</th>
+<th scope="col" class="px-6 py-3">
+    Parts
+</th>
+<th scope="col" class="px-6 py-3">
+    Actions
+</th>
 
             </tr>
         </thead>
