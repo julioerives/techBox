@@ -49,11 +49,12 @@ export default function MaterialActivo() {
     setModalHistorial(true);
   }
   const aumentar =()=>{
-    if(cantidad >= historial.length) setCantidad(historial.length);
-    else setCantidad(previo=> previo+5)
+    if(cantidad > historial.length-10) setCantidad(historial.length);
+    else setCantidad(previo=> previo+10)
   }
   const reducir =()=>{
-    if(cantidad >=0 )setCantidad(previo => previo-5)
+    if(cantidad >10 )setCantidad(previo => previo-10)
+    else setCantidad(0)
     
 
 

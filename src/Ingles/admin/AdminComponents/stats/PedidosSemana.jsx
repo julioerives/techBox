@@ -61,16 +61,16 @@ export default function PedidosSemana({ historial }) {
     return 1 + Math.round(((date - week1) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
   };
   useEffect(() => {
-    console.log(obtenerNumeroSemana("09-03-24"))
-    setFechaActualFormateada(obtenerFechaActualFormateada());
-    const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
-    setDatosFiltrados(datosFiltrados);
+    
     items();
     console.log(data);
   }, [historial, fechaActualFormateada]);
   const items = () => {
     const nuevoConteo = {};
-
+    console.log(obtenerNumeroSemana("09-03-24"))
+    setFechaActualFormateada(obtenerFechaActualFormateada());
+    const datosFiltrados = historial.filter(element => obtenerNumeroSemana(element.date) === obtenerNumeroSemana(fechaActualFormateada));
+    setDatosFiltrados(datosFiltrados);
     datosFiltrados.forEach((item) => {
       const valor = item.item;
       if (!nuevoConteo[valor]) {

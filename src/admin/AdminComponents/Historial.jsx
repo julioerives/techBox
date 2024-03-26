@@ -112,11 +112,12 @@ export default function Historial() {
     setModalHistorial(true);
   }
   const aumentar =()=>{
-    if(cantidad >= historialShow.length) setCantidad(historialShow.length);
+    if(cantidad > historialShow.length-10) setCantidad(historialShow.length);
     else setCantidad(previo=> previo+10)
   }
   const reducir =()=>{
-    if(cantidad >0 )setCantidad(previo => previo-10)
+    if(cantidad >10 )setCantidad(previo => previo-10)
+    else setCantidad(0)
     
 
 
