@@ -25,7 +25,8 @@ export default function MaterialActivo() {
             ...myData[myFireId],
             itemId: myFireId,
           }));
-          setHistorial(temporaryArray);
+
+          setHistorial(combineAndSortByDate(temporaryArray));
         } else {
           alert("Error al obtener datos");
         }
@@ -47,8 +48,24 @@ export default function MaterialActivo() {
 
     setModalHistorial(true);
   }
+  const combineAndSortByDate = (historial) => {
+    const combinedArray = [];
+    console.log(historial)
+    // Recorrer el historial y combinar todos los pedidos en un solo array
+    historial.forEach((item) => {
+      const itemId = item.itemId;
+      Object.entries(item.orders).forEach(([orderId, order]) => {
+        order.itemId = itemId;
+        combinedArray.push(order);
+      });
+    });
+
+    // Ordenar el array combinado por fecha de creación
+
+    return combinedArray;
+  };
   const aumentar =()=>{
-    if(cantidad > historial.length-10) setCantidad(historial.length);
+    if(cantidad > historial.length-10) setCantidad(historial.length-1);
     else setCantidad(previo=> previo+10)
   }
   const reducir =()=>{
@@ -71,9 +88,6 @@ export default function MaterialActivo() {
                     ID usuario
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    ID
-                </th>
-                <th scope="col" class="px-6 py-3">
                     Fecha
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -90,29 +104,21 @@ export default function MaterialActivo() {
             </tr>
         </thead>
         <tbody>
-  {historial &&
-    historial.slice(0, cantidad).map((user) => (
-      <React.Fragment key={user.itemId}>
-      
-        {Object.keys(user.orders).map((orderId) =>
-        user.orders[orderId].status === "En uso" || user.orders[orderId].status === "QR de devolución generado" ? 
-         (
-          <tr key={orderId} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td className="px-6 py-4 whitespace-nowrap">{user.itemId}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{orderId}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].createdAt}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].details}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{user.orders[orderId].status}</td>
-            <td className='px-6 py-4 whitespace-nowrap'>
-              <button onClick={() => showUser(user.itemId)} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3.5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-                  <path fill="#ffffff" d="M14 12c-1.095 0-2-.905-2-2c0-.354.103-.683.268-.973C12.178 9.02 12.092 9 12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3c1.641 0 3-1.358 3-3c0-.092-.02-.178-.027-.268c-.29.165-.619.268-.973.268"/><path fill="#ffffff" d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316l-.105-.316C21.927 11.617 19.633 5 12 5m0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5c-.504 1.158-2.578 5-7.926 5"/></svg>
-              </button>
-            </td>
-          </tr>
-        ):null)}
-      </React.Fragment>
-    ))}
+        {historial &&
+  historial.slice(0, cantidad).map((order, index) => order.status === "En uso" || order.status === "QR de devolución generado" || order.status === "QR return generated" ? (
+    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <td className="px-6 py-4 whitespace-nowrap">{order.itemId}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{order.createdAt}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{order.details}</td>
+      <td className="px-6 py-4 whitespace-nowrap">{order.status}</td>
+      <td className='px-6 py-4 whitespace-nowrap'>
+        <button onClick={() => showUser(order.itemId)} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3.5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
+            <path fill="#ffffff" d="M14 12c-1.095 0-2-.905-2-2c0-.354.103-.683.268-.973C12.178 9.02 12.092 9 12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3c1.641 0 3-1.358 3-3c0-.092-.02-.178-.027-.268c-.29.165-.619.268-.973.268"/><path fill="#ffffff" d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316l-.105-.316C21.927 11.617 19.633 5 12 5m0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5c-.504 1.158-2.578 5-7.926 5"/></svg>
+        </button>
+      </td>
+    </tr>
+  ):null)}
 </tbody>
       </table>
       <div className='w-full p-4 flex items-center justify-center gap-5'>

@@ -75,7 +75,7 @@ function Write({closeModal}) {
         <label className="font-semibold">Cantidad</label>
        <input type='number' value={inputValue3} onChange={(e) => setInputValue3(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
   
-        <button onClick={saveData} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-blue-700">Guardar Datos</button>
+        <button onClick={saveData} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-teal-700">Guardar Datos</button>
   
       </div>
     );

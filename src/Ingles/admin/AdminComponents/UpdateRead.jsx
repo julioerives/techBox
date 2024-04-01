@@ -82,7 +82,7 @@ function UpdateRead() {
     Name
 </th>
 <th scope="col" class="px-6 py-3">
-    Amount
+    Available
 </th>
 <th scope="col" class="px-6 py-3">
     Parts

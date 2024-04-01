@@ -116,7 +116,7 @@ export default function FormInsert({setModalUser,fetchDataUsers}) {
             onChange={onInputChange}
             className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <label className="font-semibold">correo</label>
+          <label className="font-semibold">Correo</label>
           <input
             type="mail"
             name="correo"

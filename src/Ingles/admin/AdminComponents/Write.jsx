@@ -66,7 +66,7 @@ function Write({closeModal}) {
     return (
       <div className="flex flex-col space-y-4">
   
-        <h1 className="text-2xl font-bold mb-4">New material information</h1>
+        <h1 className="text-2xl font-bold mb-4">Add new material information</h1>
         
         <label className="font-semibold">Name</label>
         <input type='text' value={inputValue1} onChange={(e) => setInputValue1(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input> 
@@ -76,7 +76,7 @@ function Write({closeModal}) {
         <label className="font-semibold">Amount</label>
        <input type='number' value={inputValue3} onChange={(e) => setInputValue3(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input>
   
-        <button onClick={saveData} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-blue-700">Save data</button>
+        <button onClick={saveData} className="py-2 px-4 bg-teal-600 text-white rounded hover:bg-teal-700">Save data</button>
   
       </div>
     );

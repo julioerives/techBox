@@ -83,7 +83,7 @@ function UpdateWrite({closeModal, firebaseId,fetchData}) {
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <div className="flex flex-col space-y-4">
   
-                                <h1 className="text-2xl font-bold mb-4">Material information update</h1>
+                                <h1 className="text-2xl font-bold mb-4">material information update</h1>
 
                                 <label className="font-semibold">Name</label>
                                 <input type='text' value={inputValue1} onChange={(e) => setInputValue1(e.target.value)} className="border-2 border-gray-200 rounded p-2 shadow-sm focus:outline-none focus:border-blue-500"></input> 

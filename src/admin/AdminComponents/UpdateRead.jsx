@@ -83,10 +83,10 @@ function UpdateRead() {
                 </th>
                
                 <th scope="col" class="px-6 py-3">
-                    Cantidad
+                    Disponible
                 </th>
                 <th scope="col" class="px-6 py-3">
-                   Disponible
+                   Cantidad
                 </th>
                 <th scope="col" class="px-6 py-3">
                 Acciones
