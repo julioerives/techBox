@@ -14,9 +14,13 @@ export default function Home() {
     <Navs></Navs>
     <Initial></Initial>
     <Content2></Content2>
+    <Divisor Mensaje={"TechBox"}></Divisor>
     <Content></Content>
+    <Divisor Mensaje={"TechBox"}></Divisor>
     <Grid></Grid>
+    <Divisor Mensaje={"TechBox"}></Divisor>
     <Goodness></Goodness>
+    <Divisor Mensaje={"TechBox"}></Divisor>
     <AboutUs />
     </>
   )

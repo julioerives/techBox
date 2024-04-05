@@ -1,12 +1,6 @@
 export function Divisor(props) {
     const { Mensaje } = props;
     return (
-      <span className="relative flex justify-center">
-        <div
-          className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-teal-500 to-transparent opacity-75"
-        ></div>
-  
-        <span className="relative z-10 bg-white px-6 text-teal-500">{Mensaje}</span>
-      </span>
+      <hr class="w-1/3 h-1 mx-auto my-4 bg-teal-100 border-0 rounded md:my-10 dark:bg-teal-700"></hr>
     );
   }

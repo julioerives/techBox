@@ -8,7 +8,7 @@ export function Content(){
       Se implementará un sistema automatizado de suministro que permitirá la distribución de diversos materiales tecnológicos, tales como extensiones, múltiples y cables de red. Este sistema, operado mediante una máquina expendedora especializada, facilitará el acceso y la disponibilidad de dichos recursos de manera eficiente y controlada.
       </p>
     </div>
-    <img class="w-full h-full  bg-gray-200" src="./../assets/img/Maqueta2.png"></img>
+    <img class="w-full h-full  bg-gray-200" src="https://pbs.twimg.com/media/GKX16LZWQAAaFCQ?format=jpg&name=large"></img>
   </div>
   <div class="grid items-center grid-cols-1 mb-24 md:grid-cols-2 gap-y-10 md:gap-y-32 gap-x-10 md:gap-x-24">
     <div class="order-none md:order-2">
@@ -17,7 +17,7 @@ export function Content(){
       Los estudiantes dispondrán de la capacidad para realizar registros, permitiéndoles solicitar materiales de manera eficiente a través de la aplicación correspondiente. Este proceso de autenticación tecnológica optimizará la gestión de recursos y agilizará la entrega de materiales solicitados.
       </p>
     </div>
-    <img class="w-full h-2/4  bg-gray-200" src="./../assets/img/movil.png"></img>
+    <img class="w-full h-2/4  bg-gray-200" src="https://pbs.twimg.com/media/GKX16DcXMAAFtEv?format=jpg&name=900x900"></img>
   </div>
   <div class="grid flex-col-reverse items-center grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-y-32 gap-x-10 md:gap-x-24">
     <div >

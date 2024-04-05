@@ -15,7 +15,7 @@ export function AboutUs() {
         <div className="flex flex-wrap -m-4">
           <div className="xl:w-1/4 md:w-1/2 p-4">
             <div className="bg-gray-100 p-6 rounded-lg">
-              <img className="h-40 rounded w-full object-cover object-center mb-6" src="./../public/img/pichardo.png" alt="content" />
+              <img className="h-40 rounded w-full object-cover object-center mb-6" src="https://pbs.twimg.com/media/GKX1tTGaYAA70Po?format=jpg&name=medium" alt="content" />
               <h3 className="tracking-widest text-teal-500 text-xs font-medium title-font">About me</h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">Angel Hernandez</h2>
               <div className='py-3 flex items-center text-sm text-gray-800 font-medium  before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600'>Social networks</div>
@@ -26,7 +26,7 @@ export function AboutUs() {
           </div>
           <div className="xl:w-1/4 md:w-1/2 p-4">
             <div className="bg-gray-100 p-6 rounded-lg">
-            <img className="h-40 rounded w-full object-cover object-center mb-6" src="./../public/img/Hugo.png" alt="content" />
+            <img className="h-40 rounded w-full object-cover object-center mb-6" src="https://pbs.twimg.com/media/GKX1_DJWsAAUMqS?format=png&name=small" alt="content" />
               <h3 className="tracking-widest text-teal-500 text-xs font-medium title-font">About me</h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">Hugo Chaparro</h2>
               <div className='py-3 flex items-center text-sm text-gray-800 font-medium  before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600'>Social networks</div>
@@ -37,7 +37,7 @@ export function AboutUs() {
           </div>
           <div className="xl:w-1/4 md:w-1/2 p-4">
             <div className="bg-gray-100 p-6 rounded-lg">
-              <img className="h-40 rounded w-full object-cover object-center mb-6" src="./../public/img/juliooo.png" alt="content" />
+              <img className="h-40 rounded w-full object-cover object-center mb-6" src="https://pbs.twimg.com/media/GKX15_nW4AAM5b1?format=jpg&name=small" alt="content" />
               <h3 className="tracking-widest text-teal-500 text-xs font-medium title-font">About me</h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">Julio Erives</h2>
               <div className='py-3 flex items-center text-sm text-gray-800 font-medium  before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600'>Social networks</div>
@@ -48,7 +48,7 @@ export function AboutUs() {
           </div>
           <div className="xl:w-1/4 md:w-1/2 p-4">
             <div className="bg-gray-100 p-6 rounded-lg">
-            <img className="h-40 rounded w-full object-cover object-center mb-6" src="./../public/img/santiago.jpeg" alt="content" />
+            <img className="h-40 rounded w-full object-cover object-center mb-6" src="https://pbs.twimg.com/media/GKX27heaMAArc9A?format=jpg&name=medium" alt="content" />
               <h3 className="tracking-widest text-teal-500 text-xs font-medium title-font">About me</h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">Santiago Armendariz</h2>
               <div className='py-3 flex items-center text-sm text-gray-800 font-medium  before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600'>Social networks</div>
