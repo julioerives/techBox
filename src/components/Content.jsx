@@ -23,7 +23,7 @@ export function Content(){
     <div >
       <h2 class="mb-4 text-2xl font-extrabold tracking-tight text-center text-black-700 md:leading-tight sm:text-left md:text-4xl">Como tendre el <h2 className="text-teal-500"> material</h2></h2>
       <p class="mb-5 text-base text-center text-gray-600 sm:text-left md:text-lg">
-      Through the application, users will have the ability to initiate requests for materials of their choice using QR codes, and the automated dispensing system will be responsible for providing these materials accordingly.
+      A través de la aplicación, los usuarios tendrán la posibilidad de iniciar solicitudes de materiales de su elección utilizando códigos QR, y el sistema de dispensación automatizado será responsable de proporcionar estos materiales en consecuencia.
       </p>
     </div>
     <img class="w-full h-full  bg-gray-200" src="https://pbs.twimg.com/media/GKX16EGWIAA_hrj?format=jpg&name=900x900"></img>
