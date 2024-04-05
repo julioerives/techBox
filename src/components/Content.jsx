@@ -26,7 +26,7 @@ export function Content(){
       Through the application, users will have the ability to initiate requests for materials of their choice using QR codes, and the automated dispensing system will be responsible for providing these materials accordingly.
       </p>
     </div>
-    <img class="w-full h-full  bg-gray-200" src="./../assets/img/movil.jpg"></img>
+    <img class="w-full h-full  bg-gray-200" src="https://pbs.twimg.com/media/GKX16EGWIAA_hrj?format=jpg&name=900x900"></img>
   </div>
   
 </section>
