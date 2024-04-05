@@ -12,7 +12,7 @@ import { showMessage } from '../../showMessage';
 export default function Estadisticas() {
   const [data, setData] = useState([]);
   const [historial, setHistorial] = useState([]);
-
+  const [responsivo,setResponsivo] = useState(true);
   const fetchHistorial = async () => {
     try {
       const db = getDatabase(app);
@@ -40,9 +40,7 @@ export default function Estadisticas() {
       for (const orderId in elements.orders) {
         const orderDetails = elements.orders[orderId];
         const detallesOrden = orderDetails.details.split(",");
-        console.log(detallesOrden)
         detallesOrden.forEach(element => {
-          console.log(element.slice(3))
           
           for (let index = 0; index < element.slice(3); index++) {
             nuevoHistorial.push({
@@ -55,10 +53,8 @@ export default function Estadisticas() {
         });
       }
     }));
-    console.log(nuevoHistorial);
     setHistorial(nuevoHistorial);
   
-    console.log(historial);
   };
 
   useEffect(() => {
@@ -68,30 +64,47 @@ export default function Estadisticas() {
   useEffect(() => {
     formatear();
   }, [data]); // Ejecutar formatear() cada vez que data cambie
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    if(windowSize.width < 400)setResponsivo(false)
+    else setResponsivo(true);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); 
   return (
-    <div className='flex gap-8 flex-col'>
-      <h1 className='text-center font-medium text-3xl'>Material</h1>
-      <hr />
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
-        <RecordPedidos historial={historial} />
-        <RecordPedidosMes historial={historial} />
-        <PedidosSemana historial={historial} />
+    <>{responsivo ? (<div className='flex gap-8 flex-col'>
+    <h1 className='text-center font-medium text-3xl'>Material</h1>
+    <hr />
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+      <RecordPedidos historial={historial} />
+      <RecordPedidosMes historial={historial} />
+      <PedidosSemana historial={historial} />
 
-      </div>
-      <div className="w-full h-54 flex items-center justify-center">
-      </div>
-      <h1 className='text-center font-medium text-3xl'>General</h1>
-      <hr />
-      <div className="grid h-screen grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
-        <RegistroHistoria historial={historial} />
-      </div>
-      <h1 className='text-center font-medium text-3xl'>Usuarios</h1>
-      <hr />
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-        <UsuariosFrecuentes historial={historial} />
-        <UsuariosMes historial={historial} />
-      </div>
     </div>
+    <div className="w-full h-54 flex items-center justify-center">
+    </div>
+    <h1 className='text-center font-medium text-3xl'>General</h1>
+    <hr />
+    <div className="grid h-screen grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
+      <RegistroHistoria historial={historial} />
+    </div>
+    <h1 className='text-center font-medium text-3xl'>Usuarios</h1>
+    <hr />
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+      <UsuariosFrecuentes historial={historial} />
+      <UsuariosMes historial={historial} />
+    </div>
+  </div>):(<>Graficas no disponibles en movil</>)}</>
   );
 }

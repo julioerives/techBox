@@ -1,6 +1,6 @@
 export function Initial() {
   return (
-    <>
+    <div className="pt-40 sm:pt-0">
       <section className="bg-teal-50">
         <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
           <div className="mx-auto max-w-xl text-center">
@@ -18,6 +18,7 @@ export function Initial() {
           </div>
         </div>
       </section>
-    </>
+    </div>
+      
   );
 }
