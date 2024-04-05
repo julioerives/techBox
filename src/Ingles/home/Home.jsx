@@ -7,7 +7,7 @@ import { Content } from "../components/Content";
 import { Divisor } from "../components/Divisor";
 import { Content2 } from "../components/Content2";
 import { AboutUs } from "../components/AboutUs";
-import Goodness from "../components/goodness";
+import Goodness from "../components/Goodness";
 export default function Home() {
   return (
     <>
