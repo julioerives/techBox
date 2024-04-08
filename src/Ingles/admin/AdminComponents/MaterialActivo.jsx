@@ -51,7 +51,7 @@ export default function MaterialActivo() {
   }
   const combineAndSortByDate = (historial) => {
     const combinedArray = [];
-    console.log(historial)
+    const historialShow = [];
     // Recorrer el historial y combinar todos los pedidos en un solo array
     historial.forEach((item) => {
       const itemId = item.itemId;
@@ -61,12 +61,14 @@ export default function MaterialActivo() {
       });
     });
 
-    // Ordenar el array combinado por fecha de creación
+    // Ordenar el array combinado por fecha de creació
+    historialShow.push(...combinedArray.filter(order => order.status === "En uso" || order.status === "QR de devolución generado" || order.status === "QR return generated"))
+    console.log(historialShow.slice(0,cantidad))
 
-    return combinedArray;
+    return historialShow;
   };
   const aumentar =()=>{
-    if(cantidad > historial.length-10) setCantidad(historial.length-1);
+    if(cantidad > historial.length-10) setCantidad(historial.length);
     else setCantidad(previo=> previo+10)
   }
   const reducir =()=>{
@@ -106,7 +108,7 @@ export default function MaterialActivo() {
         </thead>
         <tbody>
         {historial &&
-  historial.slice(0, cantidad).map((order, index) => order.status === "En uso" || order.status === "QR de devolución generado" || order.status === "QR return generated" ? (
+  historial.slice(0, cantidad).map((order, index) =>  (
     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
       <td className="px-6 py-4 whitespace-nowrap">{order.itemId}</td>
       <td className="px-6 py-4 whitespace-nowrap">{order.createdAt}</td>
@@ -119,7 +121,7 @@ export default function MaterialActivo() {
         </button>
       </td>
     </tr>
-  ):null)}
+  ))}
 </tbody>
       </table>
       <div className='w-full p-4 flex items-center justify-center gap-5'>

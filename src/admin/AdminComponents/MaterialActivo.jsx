@@ -8,10 +8,9 @@ import UserFind from '../../hooks/UserFind';
 import ModalHistorial from './historial/ModalHistorial';
 export default function MaterialActivo() {
   const [historial, setHistorial] = useState(null);
-  const [cantidad,setCantidad] = useState(5)
+  const [cantidad,setCantidad] = useState(10)
   const [modalHistorial,setModalHistorial] = useState(false);
   const [user,setUser] = useState(null)
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,6 +35,7 @@ export default function MaterialActivo() {
     };
   
     fetchData();
+
   }, []);
   const showUser=async (matricula)=>{
     let result
@@ -50,7 +50,7 @@ export default function MaterialActivo() {
   }
   const combineAndSortByDate = (historial) => {
     const combinedArray = [];
-    console.log(historial)
+    const historialShow = [];
     // Recorrer el historial y combinar todos los pedidos en un solo array
     historial.forEach((item) => {
       const itemId = item.itemId;
@@ -60,20 +60,19 @@ export default function MaterialActivo() {
       });
     });
 
-    // Ordenar el array combinado por fecha de creación
+    // Ordenar el array combinado por fecha de creació
+    historialShow.push(...combinedArray.filter(order => order.status === "En uso" || order.status === "QR de devolución generado" || order.status === "QR return generated"))
+    console.log(historialShow.slice(0,cantidad))
 
-    return combinedArray;
+    return historialShow;
   };
   const aumentar =()=>{
-    if(cantidad > historial.length-10) setCantidad(historial.length-1);
+    if(cantidad > historial.length-10) setCantidad(historial.length);
     else setCantidad(previo=> previo+10)
   }
   const reducir =()=>{
     if(cantidad >10 )setCantidad(previo => previo-10)
     else setCantidad(0)
-    
-
-
   }
   return (
     <div className='w-full flex justify-center'>

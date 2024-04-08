@@ -38,59 +38,63 @@ export default function Historial() {
     
   }, []);
   const sortear = () => {
-    if (historial) {
-      // Función para convertir el formato de fecha a un objeto de fecha
-      const getSortableDate = (dateString) => {
-         // Separar la cadena de fecha en partes
-  const parts = dateString.split('-');
+    try{
+      if (historial) {
+        // Función para convertir el formato de fecha a un objeto de fecha
+        const getSortableDate = (dateString) => {
+           // Separar la cadena de fecha en partes
+    const parts = dateString.split('-');
+    
+    // Verificar si hay tres partes (DD-MM-YY)
+    if (parts.length === 3) {
+      // Convertir a números
+      const [day, month, year] = parts.map(Number);
   
-  // Verificar si hay tres partes (DD-MM-YY)
-  if (parts.length === 3) {
-    // Convertir a números
-    const [day, month, year] = parts.map(Number);
-
-    // Verificar si las partes son válidas
-    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
-      // Crear un objeto de fecha con el formato YYYY-MM-DD
-      return new Date(`20${year}-${month}-${day}`);
+      // Verificar si las partes son válidas
+      if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+        // Crear un objeto de fecha con el formato YYYY-MM-DD
+        return new Date(`20${year}-${month}-${day}`);
+      }
     }
-  }
-
-  // Si la fecha no es válida, devolver null
-  return null;
-      };
   
-      // Función para combinar y ordenar los elementos del historial por fecha de creación
-      const combineAndSortByDate = (historial) => {
-        const combinedArray = [];
-  
-        // Recorrer el historial y combinar todos los pedidos en un solo array
-        historial.forEach((item) => {
-          const itemId = item.itemId;
-          Object.entries(item.orders).forEach(([orderId, order]) => {
-            order.itemId = itemId;
-            combinedArray.push(order);
+    // Si la fecha no es válida, devolver null
+    return null;
+        };
+    
+        // Función para combinar y ordenar los elementos del historial por fecha de creación
+        const combineAndSortByDate = (historial) => {
+          const combinedArray = [];
+    
+          // Recorrer el historial y combinar todos los pedidos en un solo array
+          historial.forEach((item) => {
+            const itemId = item.itemId;
+            Object.entries(item.orders).forEach(([orderId, order]) => {
+              order.itemId = itemId;
+              combinedArray.push(order);
+            });
           });
-        });
-  
-        // Ordenar el array combinado por fecha de creación
-        combinedArray.sort((a, b) => {
+    
+          // Ordenar el array combinado por fecha de creación
+          combinedArray.sort((a, b) => {
+            const dateA = getSortableDate(a.createdAt);
+            const dateB = getSortableDate(b.createdAt);
+            return dateB - dateA; // Orden descendente por fecha
+          });
+    
+          return combinedArray;
+        };
+    
+        // Llamar a la función para combinar y ordenar el historial
+        const sortedHistorial = combineAndSortByDate(historial);
+        sortedHistorial.sort((a, b) => {
           const dateA = getSortableDate(a.createdAt);
           const dateB = getSortableDate(b.createdAt);
           return dateB - dateA; // Orden descendente por fecha
         });
-  
-        return combinedArray;
-      };
-  
-      // Llamar a la función para combinar y ordenar el historial
-      const sortedHistorial = combineAndSortByDate(historial);
-      sortedHistorial.sort((a, b) => {
-        const dateA = getSortableDate(a.createdAt);
-        const dateB = getSortableDate(b.createdAt);
-        return dateB - dateA; // Orden descendente por fecha
-      });
-      setHistorialShow(sortedHistorial);
+        setHistorialShow(sortedHistorial);
+      }
+    }catch (error) {
+      console.error(error)
     }
   };
   useEffect(()=>{
