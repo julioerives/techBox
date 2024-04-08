@@ -6,7 +6,7 @@
 
 <h2>🚀 Demo</h2>
 
-[aquí va el link](aquí también va el link)
+<p><a href="https://tech-box-5j1w.vercel.app/">Click here to see the Demo</a></p>
 
   
   
@@ -30,10 +30,10 @@
 <h2>💖 Did you like the project?</h2>
 
 <p> Know the creators:</p>
-<p>Julio Erives https://github.com/julioerives</p> 
-<p>Angel Hernandez https://github.com/aahpichardo</p>  
-<p>Hugo Chaparro https://github.com/Hgdv11</p>
-<p>-</p>
+<p><a href="https://github.com/julioerives">Julio Erives<a></p> 
+<p><a href="https://github.com/aahpichardo">Angel Hernandez<a></p>
+<p><a href="https://github.com/Hgdv11">Hugo Chaparro<a></p>
+<p><a href="https://github.com/SantiagerArmendariz">Santiago Armendariz<a></p>
 
 <p><a href="https://github.com/Hgdv11/TechBox" target="_blank">Click here to see the Mobile App repository</a><p>
 <p><a href="https://github.com/aahpichardo/techbox-microcontrolador" target="_blank">Click here to see the IoT repository</a><p>
